@@ -1,0 +1,13 @@
+version: "3"
+services:
+  karaf:
+    build: .
+    ports:
+      - "8181:8181"
+      - "1099:1099"
+      - "44444:44444"
+      - "8101:8101"
+    command : ["/wait-for-it.sh", "cassandra:9042","-t", "30", "--","./karaf"] 
+    depends_on : [cassandra]
+  cassandra:
+    image : cassandra:2.2.8

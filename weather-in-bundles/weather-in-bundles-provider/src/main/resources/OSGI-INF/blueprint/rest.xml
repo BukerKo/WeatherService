@@ -1,0 +1,36 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns:cxf="http://cxf.apache.org/blueprint/core"
+           xsi:schemaLocation="
+             http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+             http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+             http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd
+             ">
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <jaxrs:server id="weatherRest" address="/weather">
+        <jaxrs:serviceBeans>
+            <ref component-id="weatherBean" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="com.nixsolutions.bukrieiev.handler.GsonMessageBodyHandler"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+    
+    <bean id="weatherBean" class="com.nixsolutions.bukrieiev.provider.WeatherServiceRest">
+        <argument index="0" ref="cassandraServiceBean"/>
+        <argument index="1" ref="camelBean" />
+    </bean>
+
+    <bean id="cassandraServiceBean" class="com.nixsolutions.bukrieiev.cassandra.service.WeatherServiceCassandra" init-method="startUp"/>
+
+    <bean id="camelBean" class="com.nixsolutions.bukrieiev.camel.CamelForwarder" />
+
+
+</blueprint>

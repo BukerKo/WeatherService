@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1556614342311
+Build-Jdk: 1.8.0_202
+Built-By: bukrieiev
+Bundle-ManifestVersion: 2
+Bundle-Name: weather-in-bundles-api
+Bundle-SymbolicName: com.nixsolutions.bukrieiev.weather-in-bundles-api
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.nixsolutions.bukrieiev.api;uses:="javax.ws.rs";versi
+ on="1.0.0"
+Import-Package: javax.ws.rs;version="[2.0,3)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-4.2.0.201903051501

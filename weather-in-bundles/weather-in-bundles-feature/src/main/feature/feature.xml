@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<features name="${project.artifactId}-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0">
+
+
+
+    <repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
+
+    <feature name="_camel" version="${project.version}">
+        <bundle>mvn:org.apache.camel/camel-mail/${camel.version}</bundle>
+        <bundle>mvn:org.apache.camel/camel-servlet/${camel.version}</bundle>
+        <bundle>mvn:org.apache.camel/camel-http-common/${camel.version}</bundle>
+    </feature>
+
+    <feature name="_netty" version="${project.version}">
+        <bundle>mvn:com.datastax.cassandra/cassandra-driver-core/${datastax.version}</bundle>
+        <bundle>mvn:io.netty/netty-transport/${netty.version}</bundle>
+        <bundle>mvn:io.netty/netty-buffer/${netty.version}</bundle>
+        <bundle>mvn:io.netty/netty-handler/${netty.version}</bundle>
+        <bundle>mvn:io.netty/netty-codec/${netty.version}</bundle>
+        <bundle>mvn:io.netty/netty-common/${netty.version}</bundle>
+    </feature>
+
+    <feature name="_cxf" version="${project.version}">
+        <feature>cxf</feature>
+        <bundle>mvn:javax.ws.rs/javax.ws.rs-api/${ws.rs.version}</bundle>
+        <bundle>mvn:org.apache.cxf/cxf-rt-frontend-jaxrs/${cxf.version}</bundle>
+        <bundle>mvn:javax.annotation/javax.annotation-api/1.3</bundle>
+        <bundle>mvn:org.apache.cxf/cxf-rt-transports-http/${cxf.version}</bundle>
+        <bundle>mvn:com.google.code.gson/gson/${gson.version}</bundle>
+    </feature>
+
+    <feature name="WeatherEntity" version="${project.version}">
+        <feature>_cxf</feature>
+        <bundle>mvn:com.nixsolutions.bukrieiev/weather-in-bundles-api/${project.version}</bundle>
+    </feature>
+
+    <feature name="WeatherCassandra" version="${project.version}">
+        <feature>_netty</feature>
+        <bundle>mvn:com.nixsolutions.bukrieiev/weather-in-bundles-cassandra/${project.version}</bundle>
+        <bundle>mvn:io.dropwizard.metrics/metrics-core/3.2.0</bundle>
+    </feature>
+
+
+    <!--    <feature name="WeatherClient" version="${project.version}">-->
+    <!--        <feature>http</feature>-->
+    <!--        <feature  >WeatherProvider</feature>-->
+    <!--        <feature  >aries-blueprint</feature>-->
+    <!--        &lt;!&ndash;        <feature version="${cxf.version}"  >cxf</feature>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <bundle  >mvn:org.apache.cxf/cxf-rt-rs-client/${cxf.version}</bundle>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <bundle  >mvn:org.apache.cxf/cxf-core/${cxf.version}</bundle>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <bundle>mvn:javax.ws.rs/javax.ws.rs-api/2.0</bundle>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <bundle  >mvn:org.json/json/20160810</bundle>&ndash;&gt;-->
+    <!--    </feature>-->
+
+
+    <feature name="WeatherProvider" version="${project.version}" install="auto">
+        <feature>_camel</feature>
+        <feature>WeatherEntity</feature>
+        <feature>WeatherCassandra</feature>
+        <bundle>mvn:com.nixsolutions.bukrieiev/weather-in-bundles-provider/${project.version}</bundle>
+    </feature>
+</features>

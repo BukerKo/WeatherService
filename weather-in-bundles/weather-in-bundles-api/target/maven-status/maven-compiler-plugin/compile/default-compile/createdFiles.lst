@@ -1,0 +1,5 @@
+com/nixsolutions/bukrieiev/api/Weather.class
+com/nixsolutions/bukrieiev/api/WindInfo.class
+com/nixsolutions/bukrieiev/api/WeatherServiceRestInterface.class
+com/nixsolutions/bukrieiev/api/WeatherServiceCassandraInterface.class
+com/nixsolutions/bukrieiev/api/MainInfo.class
